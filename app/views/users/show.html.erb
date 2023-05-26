@@ -1,0 +1,12 @@
+<div class="container-fluid p-5 bg-light">
+  <% if @user.events.empty? %>
+    This user has no events created.
+  <% else %>
+    <% @user.events.each do |event| %>
+      <%= link_to event.name, event_path(event) %><br>
+      <% if event.creator == current_user %>
+        <%= button_to "Delete event", event_path(event), data: {turbo_confirm: 'Are you sure?'}, method: :delete %>
+      <% end %>
+    <% end %>
+  <% end %>
+</div>

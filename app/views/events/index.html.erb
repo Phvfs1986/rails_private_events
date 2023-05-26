@@ -1,0 +1,25 @@
+<div class="container-fluid p-5 bg-light">
+  Events<br><br>
+  <% if @events.empty? %>
+    There are no events yet!
+  <% else %>
+    <% @events.each do |event| %>
+      <div>
+        <%= link_to event.name, event_path(event) %><br>
+        <%= event.description %>
+      </div>
+    <% end %>
+  <% end %><br>
+
+  <div class="btn-group" role="group" aria-label="Basic example">
+    <% if user_signed_in? %>
+      <%= button_to current_user.name, user_show_path(current_user), method: :get %>
+      <%= button_to 'Create Event', new_event_path, method: :get %>
+      <%= button_to "Edit User", edit_user_registration_path, method: :get %><br><br>
+      <%= button_to 'Sign Out', destroy_user_session_path, method: :delete %>
+    <% else %>
+      <%= button_to "Sign In", new_user_session_path, method: :get %><br><br>
+      <%= button_to "Sign Up", new_user_registration_path, method: :get %><br><br>
+    <% end %>
+  </div>
+</div>

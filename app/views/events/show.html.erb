@@ -1,0 +1,11 @@
+<div class="container-fluid p-5 bg-light">
+  <%= @event.name %><br>
+  <%= @event.description %><br>
+  <%= @event.location %><br>
+  <%= @event.date.strftime('%d/%m/%y') %><br>
+  <%= @event.time.strftime('%H:%m') %><br>
+
+  <% if @event.creator != current_user %>
+    attend event
+  <% end %>
+</div>
