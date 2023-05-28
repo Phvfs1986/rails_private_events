@@ -35,6 +35,11 @@ class EventsController < ApplicationController
     end
   end
 
+  def attend_event
+    @event = Event.find(params[:id])
+    redirect_to new_event_attendance_path(event: @event)
+  end
+
   def destroy
     @event = Event.find(params[:id])
 

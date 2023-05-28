@@ -4,8 +4,13 @@
   <%= @event.location %><br>
   <%= @event.date.strftime('%d/%m/%y') %><br>
   <%= @event.time.strftime('%H:%m') %><br>
+  <%= button_to 'Attend event', attend_event_event_path(@event), method: :get %>
 
   <% if @event.creator != current_user %>
     attend event
+  <% end %>
+
+  <% @event.attendees.each do |attendee| %>
+    <%= attendee.name %>
   <% end %>
 </div>
