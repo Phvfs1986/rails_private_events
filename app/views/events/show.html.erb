@@ -1,16 +1,26 @@
-<div class="container-fluid p-5 bg-light">
-  <%= @event.name %><br>
-  <%= @event.description %><br>
-  <%= @event.location %><br>
-  <%= @event.date.strftime('%d/%m/%y') %><br>
-  <%= @event.time.strftime('%H:%m') %><br>
-  <%= button_to 'Attend event', attend_event_event_path(@event), method: :get %>
+<div class="jumbotron">
+  <h1 class="display-2"><%= @event.name.capitalize %></h1><br>
+  <hr class="my-1">
+  <div class="shadow p-3 mb-5 bg-body-tertiary rounded">
+    <p class="lead">Description: <%= @event.description %></p>
+    <p class="lead">Location: <%= @event.location %></p>
+    <p class="lead">Date: <%= @event.date.strftime('%d/%m/%y') %></p>
+    <p class="lead">Time: <%= @event.time.strftime('%H:%m') %></p>
+    <p class="lead">Created by: <%= link_to @event.creator.name, user_show_path(@event.creator) %></p>
+    <% if @event.creator != current_user && !current_user.attended_events.include?(@event) %>
+      <% if @event.date >= Time.now %>
+        <%= button_to 'Attend event', attend_event_event_path(@event), method: :get %>
+      <% end %>
+    <% end %>
+  </div>
 
-  <% if @event.creator != current_user %>
-    attend event
-  <% end %>
-
-  <% @event.attendees.each do |attendee| %>
-    <%= attendee.name %>
-  <% end %>
-</div>
+<h5>Attendees:</h5><br>
+<ol class="list-group list-group-numbered">
+    <% @event.attendees.each do |attendee| %>
+      <li class="list-group-item d-flex justify-content-between align-items-start">
+        <div class="ms-2 me-auto">
+          <div class="fw-bold"><%= link_to attendee.name, user_show_path(attendee) %></div>
+        </div>
+      </li>
+    <% end %><br>
+</ol>

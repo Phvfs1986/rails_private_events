@@ -15,8 +15,39 @@
   </head>
 
   <body>
-    <p class="notice"><%= notice %></p>
-    <p class="alert"><%= alert %></p>
-    <%= yield %>
+    <nav class="navbar navbar-expand-lg bg-body-tertiary">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="#">Private Events</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav">
+            <li><%= link_to 'Home', root_path, class: 'nav-link' %></li>
+            <% if user_signed_in? %>
+              <li><%= link_to current_user.name, user_show_path(current_user), class: 'nav-link' %></li>
+              <li><%= button_to 'Sign Out', destroy_user_session_path, method: :delete, class: 'nav-link' %></li>
+            <% else %>
+              <li><%= link_to "Sign In", new_user_session_path, class: 'nav-link' %></li>
+              <li><%= link_to "Sign Up", new_user_registration_path, class: 'nav-link' %></li>
+            <% end %>
+          </ul>
+        </div>
+      </div>
+    </nav>
+    <div class="container-fluid">
+      <% flash.each do |type, msg| %>
+        <% if type == 'alert' %>
+          <div class="alert alert-primary" role="alert">
+            <p class="alert"><%= alert %></p>
+          </div>
+        <% else %>
+          <div class="alert alert-success" role="alert">
+            <p class="notice"><%= notice %></p>
+          </div>
+        <% end %>
+      <% end %>
+      <%= yield %>
+    </div>
   </body>
 </html>

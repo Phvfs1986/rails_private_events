@@ -47,6 +47,7 @@ class EventsController < ApplicationController
       flash[:notice] = 'Event deleted!'
       redirect_to root_path
     else
+      flash.now[:notice] = 'Something went wrong!'
       render :show
     end
   end
