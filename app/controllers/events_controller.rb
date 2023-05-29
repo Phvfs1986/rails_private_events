@@ -3,6 +3,7 @@
 # The EventsController handles CRUD operations for events.
 # It inherits from ApplicationController, which is the base controller class.
 class EventsController < ApplicationController
+  skip_before_action :authenticate_user!, only: [:index]
   # GET /events
   # Retrieves all events from the database and assigns them to @events instance variable.
   def index
