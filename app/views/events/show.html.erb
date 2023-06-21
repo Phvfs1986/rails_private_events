@@ -12,7 +12,11 @@
         <%= button_to 'Attend event', attend_event_event_path(@event), method: :get %>
       <% end %>
     <% end %>
+    <% if @event.creator == current_user %>
+      <%= button_to 'Edit event', edit_event_path(@event), method: :get %>
+    <% end %>
   </div>
+</div>
 
 <h5>Attendees:</h5><br>
 <ol class="list-group list-group-numbered">

@@ -30,9 +30,26 @@ class EventsController < ApplicationController
 
     if @event.save
       flash[:notice] = 'Event created!'
+      EventCreatorMailer.with(event: @event).event_created_email.deliver_now
       redirect_to root_path
     else
       render :new, status: :unprocessable_entity
+    end
+  end
+
+  def edit
+    @event = Event.find(params[:id])
+  end
+
+  def update
+    @event = Event.find(params[:id])
+
+    if @event.update(event_params)
+      flash[:notice] = 'Event Updated!'
+      redirect_to @event
+    else
+      flash.now[:notice] = 'Something went wrong!'
+      render 'edit'
     end
   end
 

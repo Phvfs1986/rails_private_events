@@ -4,7 +4,7 @@
   This user has no events created.<br><br>
 <% else %>
   <ol class="list-group list-group-numbered">
-    <% @user.created_events.each do |event| %>
+    <% @user.created_events.includes([:creator]).each do |event| %>
       <li class="list-group-item d-flex justify-content-between align-items-start">
         <div class="ms-2 me-auto">
           <div class="fw-bold"><%= link_to event.name, event_path(event) %></div>
