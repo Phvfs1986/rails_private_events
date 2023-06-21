@@ -35,7 +35,7 @@ RUN bundle install && \
 # Copy application code
 COPY --link . .
 
-RUN npm install -g yarn
+RUN yarn install
 
 # Precompile bootsnap code for faster boot times
 RUN bundle exec bootsnap precompile app/ lib/
